@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -9,13 +10,17 @@ import (
 	"github.com/getlantern/systray"
 )
 
+var iconPath string
+
 func main() {
+	iconPathPtr := flag.String("f", "assets/hauxe.jpg", "Icon path")
+	flag.Parse()
+	iconPath = *iconPathPtr
 	systray.Run(onReady, onExit)
 }
 
 func onReady() {
-
-	systray.SetIcon(getIcon("assets/hauxe.jpg"))
+	systray.SetIcon(getIcon(iconPath))
 	systray.SetTitle("Ấm Sò")
 
 	medium := systray.AddMenuItem("Medium Blog", "My Medium Blog")
